@@ -44,7 +44,11 @@ Where
 -   `fields` is the field/s you want in the output (symbol atom or vector)
 
 returns a function to parse the text.
-   
+
+!!! note
+    .nlp.newParser supports the default languages available from spacy plus Chinese and Japanese which are in the alpha stage of tokenization. To import the dependencies for these languages see https://spacy.io/usage/models.
+
+  
 The optional fields are:
 
 field         | type                   | content
@@ -127,7 +131,7 @@ TF-IDF is an algorithm that weighs a term’s frequency (TF) and its inverse doc
 
 #### `.nlp.TFIDF`
 
-_TF-IDF scores for all terms in the document_
+_TF-IDF scores for all terms in each document excluding stop words_
 
 Syntax: `.nlp.TFIDF x`
 
@@ -136,13 +140,36 @@ Where `x` is a table of documents, returns for each document, a dictionary with 
 Extract a specific document and find the most significiant words in that document:
 
 ```q
-q)queriedemail:jeffcorpus[where jeffcorpus[`text] like "*charity bike*"]`text;
-q)5#desc .nlp.TFIDF[jeffcorpus]1928
-bikers   | 17.7979
-biker    | 17.7979
-strenuous| 14.19154
-route    | 14.11932
-rode     | 14.11136
+q)queriedemail:jeffcorpus[where jeffcorpus[`text] like "*Fire Chief Committee*"]
+q)5#desc .nlp.TFIDF[jeffcorpus]309
+fire     | 0.1592099
+committee| 0.120085
+recalling| 0.09045326
+lousy    | 0.09045326
+ladder   | 0.09045326
+```
+
+
+#### `.nlp.TFIDF_tot`
+
+_Total TF-IDF score for all terms in the corpus of documents excluding stop words_
+
+Syntax: `.nlp.TFIDF_tot x`
+
+Where `x` is a table of documents, returns a dictionary with the tokens as keys, and relevance as values for every word in the corpus.
+
+```q
+q)10#.nlp.TFIDF_tot[corpus]
+whale   | 0.7660246
+ahab    | 0.3916506
+um      | 0.3789465
+man     | 0.2862619
+ship    | 0.2859984
+sea     | 0.2796021
+old     | 0.2688783
+whales  | 0.2620768
+thou    | 0.2578012
+queequeg| 0.2503882
 ```
 
 In cases where the dataset is more similar to a single document than a collection of separate documents, a different algorithm can be used. This algorithm is taken from 
@@ -225,19 +252,20 @@ Search for the phrases that contain `captain` and see which phrase has the large
 
 ```q
 q).nlp.extractPhrases[corpus;`captain]  
-"captain ahab"        | 31
-"captain peleg"       | 12
-"captain bildad"      | 7
-"captain sleet"       | 5
-"stranger captain"    | 4
-"said the captain"    | 3
-"sea-captain"         | 2
-"whaling captain"     | 2
-"captain's cabin"     | 2
-"captain ahab,\" said"| 2
-"captain pollard"     | 2
-"captain d'wolf"      | 2
-"way, captain"        | 2
+`captain`ahab      | 50
+`captain`peleg     | 23
+`captain`bildad    | 11
+`stranger`captain  | 6
+`captain`sleet     | 5
+`sea`captain       | 3
+`captain`pollard   | 3
+`whaling`captain   | 2
+`captain`ahab`stood| 2
+`captain`stood     | 2
+`captain`d'wolf    | 2
+`captain`mayhew    | 2
+`way`captain       | 2
+`captain`boomer    | 2
 ```
 
 ---
@@ -387,18 +415,12 @@ returns the documents’ indexes, grouped into clusters.
 
 ```q
 q).nlp.cluster.summarize[jeffcorpus;30]
-
-0 31 47 127 361 431 513 615 724 786 929 933 1058..
-1 40 44 189 507 514 577 585 746 805 869 1042.. 
-2 3 4 6 7 9 10 13 16 17 19 20 22 23 24 28 33 34..
-5 27 30 39 393 611 641 654 670 782 820 1358..
-8 73 147 427 592 660 743 794 850
-11 26 113 236 263 280 281 340 391 414 429 478..
-12 14 38 43 49 52 89 173 232 278 325 328 
-15 18 21 25 32 45 100 119 168 202 285 298..
-29 159 386 430 459 499 508 597 659 731 
-68 83 105 132 141 152 177 182 185 226 257.. 
-78 91 219 225 231 239 244 255 401 477 524 551..
+0 18 22 25 32 33 38 51 54 66 83 87 92 95 100 101 111 112 142 150 204 205 207 ..
+1 79 120 175 176 177 179 180 208 217 281 290 294 295 302 306 309 311 317 331 ..
+2 5 6 13 14 17 21 26 28 36 46 48 49 56 60 62 64 72 73 78 85 89 96 98 105 107 ..
+3 8 19 27 50 76 110 118 131 139 172 178 232 233 237 244 256 257 258 264 265 2..
+4 75 115 185 225 338 345 415 569 590 633 644 647 676 718 848 852 859 862 870 ..
+..
 ```
 
 
@@ -426,7 +448,7 @@ Partition _Moby Dick_ into 15 clusters; we find there is one large cluster prese
 ``` q
 q)clusters:.nlp.cluster.kmeans[corpus;15;30]
 q)count each clusters
-32 9 13 9 12 5 12 8 6 8 7 11 11 5 2
+49 6 5 18 43 3 4 3 1 6 1 3 3 4 1
 ```
 
 
@@ -487,7 +509,7 @@ Group Jeff Skilling’s emails into 60 clusters:
 
 ```q
 q)count each .nlp.cluster.fastRadix[jeffcorpus;60]
-15 14 10 9 8 13 9 8 8 6 5 6 6 8 5 6 5 4 4 4 4 4 4 8 4 5 4 4 5 4 4 4 3 3 3 3 3..
+39 16 17 15 25 14 27 15 12 13 8 14 15 23 12 9 6 7 12 21 6 6 120 6 8 6 9 6 6 3..
 ```
 
 
@@ -513,7 +535,7 @@ Group Jeff Skilling’s emails into 60 clusters:
 
 ```q
 q)count each .nlp.cluster.radix[jeffcorpus;60]
-9 7 6 7 10 12 6 5 5 5 6 8 6 5 8 5 6 5 5 5 6 7 5 5 5 6 9 6 5 5 9 5 5 8 17 7 37.
+37 9 11 21 16 7 7 11 13 7 11 9 6 22 8 12 6 6 7 5 5 6 10 5 5 5 8 30 23 19 8 10..
 ```
 
 
@@ -535,7 +557,7 @@ Where `x` is a list of dictionaries which are a document’s keyword field, retu
 q)/16 emails related to donating to charity
 q)charityemails:jeffcorpus where jeffcorpus[`text] like "*donate*"
 q).nlp.cluster.MSE charityemails`keywords
-0.1177886
+0.128137
 
 q)/10 emails chosen at random
 q).nlp.cluster.MSE (-10?jeffcorpus)`keywords
@@ -611,7 +633,7 @@ returns the cosine similarity of the two documents as a float.
 q)petition:laycorpus where laycorpus[`subject] like "Demand Ken*"
 q)centroid:sum petition`keywords
 q).nlp.i.compareDocToCentroid[centroid]each petition`keywords
-0.2374891 0.2308969 0.2383573 0.2797052 0.2817323 0.3103245 0.279753 0.2396462 0.3534717 0.369767
+0.7694089 0.6948267 0.7860383 0.7173951 0.7988374 0.5929251 0.8237824 0.76885..
 q)outliers:petition iasc .nlp.i.compareDocToCentroid[centroid]each petition`keywords
 ```
 
@@ -682,17 +704,17 @@ Syntax: `.nlp.explainSimilarity[doc1;doc2]`
 Where `doc1` and `doc2` are dictionaries consisting of their associated documents’ keywords, returns a dictionary of how much of the similarity score each token is responsible for.
 
 ```q
-q)10#.nlp.explainSimilarity . jeffcorpus[`keywords]568 358
-fire     | 0.2588778
-roel     | 0.1456685
-committee| 0.1298068
-mayor    | 0.1295087
-station  | 0.09342764
-chief    | 0.06948782
-select   | 0.04325209
-important| 0.03838308
-members  | 0.03530552
-plan     | 0.02459828
+q)10#.nlp.explainSimilarity . jeffcorpus[`keywords]304 1750
+fire   | 0.3390423
+chief  | 0.3339042
+way    | 0.08815785
+luck   | 0.07392571
+direct | 0.05104685
+dear   | 0.02821725
+future | 0.02577463
+best   | 0.02398041
+houston| 0.02251133
+jeff   | 0.01343955
 ```
 
 
@@ -712,7 +734,7 @@ Where `x` is string or a list of strings, returns a dictionary or table containi
 An run of sentences from _Moby Dick_:
 
 ```q
-q).nlp.sentiment("Three cheers,men--all hearts alive!";"No,no! shame upon all cowards-shame upon them!")
+q).nlp.sentiment each ("Three cheers,men--all hearts alive!";"No,no! shame upon all cowards-shame upon them!")
 compound   pos       neg       neu      
 ----------------------------------------
 0.7177249  0.5996797 0         0.4003203
@@ -745,7 +767,7 @@ Syntax: `.nlp.loadEmails x`
 Where `x` is a string of the filepath, returns a table.
 
 ```q
-q)email:.nlp.loadEmails["/home/kx/nlp/datasets/tdwg.mbox"]
+q)emails:.nlp.loadEmails["/home/kx/nlp/datasets/tdwg.mbox"]
 q)cols email
 `sender`to`date`subject`contentType`payload`text
 ```
@@ -798,7 +820,7 @@ Syntax: `.nlp.email.i.parseMail x`
 Where `x` is an email in a string format, returns a dictionary of the headers and content.
 
 ```q
-q)table:.nlp.email.parseMail emailString
+q)table:.nlp.email.i.parseMbox emailString
 q)cols table 
 `sender`to`date`subject`contentType`payload
 ```
@@ -863,6 +885,12 @@ Where `x` is a dictionary or a table of document records or subcorpus, returns a
 ```q
 /finds the sentences in the first chapter of MobyDick
 q) .nlp.getSentences corpus[0]
+"CHAPTER 1\n\n  Loomings\n\n\n\nCall me Ishmael."
+" Some years ago--never mind how long precisely-- having little or no money i..
+" It is a way I have of driving off the spleen and regulating the circulation."
+"Whenever I find myself growing grim about the mouth; whenever it is a damp, ..
+" This is my substitute for pistol and ball."
+..
 ```
 
 
@@ -886,4 +914,17 @@ fileName path                                           text                 ..
 ```
 
 
+#### `.nlp.detectLang`
 
+_Detects the language of a text._
+
+Syntax: `nlp.detectLang x`
+
+Where `x is a string of text, returns the language of the text
+
+```q
+q).nlp.detectLang("Hi, how are you")
+`en
+.nlp.detectLang("Hallo, wie geht es dir")
+`de
+```

@@ -1,25 +1,26 @@
 ---
 author: Conor McCarthy
 date: October 2018
-keywords: confusion matrix, machine learning, ml, utilities, interpolation, filling, statistics, kdb+, q
+keywords: confusion matrix, machine-learning, ml, utilities, interpolation, filling, statistics, kdb+, q
 ---
 
 # <i class="fa fa-share-alt"></i> Utilities 
-
-
-
 
 The utility functions cover procedures and analyses common to many machine-learning applications.
 
 <i class="fa fa-github"></i>
 [KxSystems/ml](https://github.com/kxsystems/ml/)
 
-To load the utilities library:
+## Loading
+
+Load the utilities library using:
 
 ```q
 q)\l ml/ml.q
 q).ml.loadfile`:util/init.q
 ```
+
+## Functions
 
 Functions are divided into two namespaces:
 
@@ -28,45 +29,64 @@ Functions are divided into two namespaces:
 
 These namespaces will be extended over time to wider functionality.
 
-function                                      | returns
+Function                                      | Output
 :---------------------------------------------|:-------------------------------------------------
 [`.ml.accuracy`](utils.md#mlaccuracy)         | Accuracy of classification results 
 [`.ml.arange`](utils.md#mlarange)             | Evenly-spaced values within a range 
-[`.ml.confdict`](utils.md#mlconfdict)         | True/false positives and true/false negatives as dictionary
+[`.ml.confdict`](utils.md#mlconfdict)         | True/false positives and negatives as dictionary
 [`.ml.confmat`](utils.md#mlconfmat)           | Confusion matrix 
-[`.ml.corrmat`](utils.md#mlcorrmat)           | Table-like correlation matrix for a simple table 
+[`.ml.corrmat`](utils.md#mlcorrmat)           | Correlation of a table
+[`.ml.crm`](utils.md#mlcrm)                   | Correlation of a matrix
 [`.ml.crossentropy`](utils.md#mlcrossentropy) | Categorical cross entropy 
+[`.ml.cvm`](utils.md#mlcvm)                   | Covariance of matrix
 [`.ml.describe`](utils.md#mldescribe)         | Descriptive information about a table
 [`.ml.eye`](utils.md#mleye)                   | Identity matrix
+[`.ml.f1score`](utils.md#f1score)	      | F1-score for classification results
+[`.ml.fbscore`](utils.md#fbscore)             | Fbeta-score for classfication results
+[`.ml.kfshuff`](utils.md#mlkfshuff)	      | Non repeating indices from target in K-Folds
+[`.ml.kfxval`](utils.md#mlkfxval)	      | K-Fold cross validation
 [`.ml.linspace`](utils.md#mllinspace)         | List of evenly-spaced values 
-[`.ml.logloss`](utils.md#mllogloss)           | Logarithmic loss 
-[`.ml.mse`](utils.md#mlmse)                   | Mean square 
+[`.ml.logloss`](utils.md#mllogloss)           | Logarithmic loss
+[`.ml.mae`](utils.md#mlmae)                   | Mean absolute error 
+[`.ml.mape`](utils.md#mlmase)                 | Mean absolute percentage error
+[`.ml.matcorr`](utils.md#mlmatcorr)           | Matthews-correlation coefficient
+[`.ml.mse`](utils.md#mlmse)                   | Mean squared error 
 [`.ml.percentile`](utils.md#mlpercentile)     | Percentile calculation for an array
 [`.ml.precision`](utils.md#mlprecision)       | Precision of a binary classifier 
+[`.ml.r2score`](utils.md#mlr2score)	      | R2-score for regression model validation
 [`.ml.range`](utils.md#mlrange)               | Range of values 
-[`.ml.roc`](utils.md#mlroc)                   | X- and Y-axis values for an ROC curve 
-[`.ml.rocaucscore`](utils.md#mlrocaucscore)   | Area under an ROC curve 
+[`.ml.roc`](utils.md#mlroc)                   | X- and Y-axis values for a ROC curve 
+[`.ml.rocaucscore`](utils.md#mlrocaucscore)   | Area under a ROC curve 
+[`.ml.rmse`](utils.md#mlrmse)		      | Root mean squared error for a regressor
+[`.ml.rmsle`](utils.md#mlrmsle)               | Root mean squared log error 
 [`.ml.sensitivity`](utils.md#mlsensitivity)   | Sensitivity of a binary classifier 
 [`.ml.shape`](utils.md#mlshape)               | Shape of a matrix 
+[`.ml.smape`](utils.md#mlsmape)               | Symmetric mean absolute percentage error
 [`.ml.specificity`](utils.md#mlspecificity)   | Specificity of a binary classifier 
 [`.ml.sse`](utils.md#mlsse)                   | Sum squared error 
 [`.ml.tscore`](utils.md#mltscore)             | One-sample t-test score 
-[`.ml.tscoreeq`](utils.md#mltscoreeq)         | T-test for independent samples with unequal variances 
+[`.ml.tscoreeq`](utils.md#mltscoreeq)         | T-test for independent samples with equal variances and equal sample size
 
 
-function                                                           | returns
+Function                                                           | Output
 :------------------------------------------------------------------|:-------------------------------------------------
-[`.ml.util.df2tab`](utils.md#mlutildf2tab)                         | Table from a Pandas dataframe 
+[`.ml.util.classreport`](utils.md#mlclassreport)		   | Statistical information about classification results
+[`.ml.util.combs`](utils.md#mlcombs)                               | Unique combinations of a vector or matrix
+[`.ml.util.df2tab`](utils.md#mlutildf2tab)                         | q table from a Pandas dataframe 
 [`.ml.util.dropconstant`](utils.md#mlutildropconstant)             | Columns with zero variance removed
-[`.ml.util.fillfn`](utils.md#mlutilfillfn)                         | Tailored filling of null values for a simple matrix 
+[`.ml.util.filltab`](utils.md#mlutilfilltab)		           | Tailored filling of null values for a simple matrix
+[`.ml.util.freqencode`](util.md#mlutilsfreqencode)		   | Encoded frequency of individual category occurences
+[`.ml.util.infreplace`](util.md#mlutilsinfreplace)		   | +/- infinities replaced with data min/max
+[`.ml.util.lexiencode`](utils.md#mlutilslexiencode)		   | Categorical labels of features based on their lexigraphical order
 [`.ml.util.minmaxscaler`](utils.md#mlutilminmaxscaler)             | Data scaled between 0-1 
+[`.ml.util.nullencode`](utils.md#mlutilnullencode)		   | Nulls filled with avg/med/min/max of the column
 [`.ml.util.onehot`](utils.md#mlutilonehot)                         | One-hot encoding 
 [`.ml.util.polytab`](utils.md#mlutilpolytab)                       | Polynomial features of degree n from a table 
 [`.ml.util.stdscaler`](utils.md#mlutilstdscaler)                   | Standard scaler transform-based representation of a table 
 [`.ml.util.tab2df`](utils.md#mlutiltab2df)                         | Pandas dataframe from a q table 
-[`.ml.util.traintestsplit`](utils.md#mlutiltraintestsplit)         | Split into training and test sets 
-[`.ml.util.traintestsplitseed`](utils.md#mlutiltraintestsplitseed) | Split into training and test sets with a seed 
-
+[`.ml.util.timespantrainsform`](utils.md#mlutiltimespantransform)  | Timespan converted into its constituent parts
+[`.ml.util.traintestsplit`](utils.md#mlutiltraintestsplit)         | Training and testing sets 
+[`.ml.util.traintestsplitseed`](utils.md#mlutiltraintestsplitseed) | Training and testing sets with a seed 
 
 
 ## `.ml.accuracy`
@@ -92,23 +112,26 @@ q).ml.accuracy[1000?10;1000?10] / non-binary classifier
 
 ## `.ml.arange`
 
-_Evenly-spaced values_
+_Evenly-spaced values within a range_
 
 Syntax: `.ml.arange[x;y;z]`
 
-Where `x`, `y`, and `z` are numeric atoms, returns a vector of evenly-spaced values between `x` (inclusive) and `y` (non-inclusive) in steps of length `z`.
+Where
+
+-   `x`, `y`, and `z` are numeric atoms
+
+returns a vector of evenly-spaced values between `x` (inclusive) and `y` (non-inclusive) in steps of length `z`.
 
 ```q
 q).ml.arange[1;10;1]
 1 2 3 4 5 6 7 8 9
-q).ml.arange[6.25;10.5;0.05]
+q).ml.arange[6.25;10.5;.05]
 6.25 6.3 6.35 6.4 6.45 6.5 6.55 6.6 6.65 6.7 6.75 6.8 6.85 6.9 6.95 7 7.05 7...
 ```
 
-
 ## `.ml.confdict`
 
-_True/false positives and true/false negatives_
+_True/false positives and negatives as dictionary_
 
 Syntax: `.ml.confdict[x;y]`
 
@@ -117,7 +140,7 @@ Where
 -   `x` is a vector of (binary) predicted values
 -   `y` is a vector of (binary) true values
 
-returns a dictionary giving the count of true positives (tp), true negatives (tn), false positives (fp) and false negatives (fn).
+returns a dictionary giving the count of true positives (`tp`), true negatives (`tn`), false positives (`fp`) and false negatives (`fn`).
 
 ```q
 q).ml.confdict[100?"AB";100?"AB"]
@@ -153,26 +176,57 @@ q).ml.confmat[100?5;100?5]   / non-binary classifier
 4| 3 4 6 2 3
 ```
 
-
 ## `.ml.corrmat`
 
-_Table-like correlation matrix for a simple table_
+_Correlation of a table_
 
-Syntax: `.ml.corrmat[x]`
+Syntax: `ml.corrmat[x]`
 
-Where `x` is a table of numeric values, returns a table representing a correlation matrix.
+Where
+
+-   `x` is a table
+
+returns the confusion matrix of a table
 
 ```q
-q)tab:([]A:asc 100?1f;B:desc 100?1000f;C:100?100)
-q).ml.corrmat tab
- | A          B          C         
--| --------------------------------
-A| 1          -0.9945903 -0.2273659
-B| -0.9945903 1          0.2287606 
-C| -0.2273659 0.2287606  1                  
+q)show t1:([]5?10;5?10;5?10)
+x x1 x2
+-------
+4 1  4 
+0 2  4 
+2 8  3 
+1 5  8 
+2 5  9 
+q).ml.corrmat[t1]
+  | x          x1         x2        
+- | --------------------------------
+x | 1          -0.1700753 -0.1497195
+x1| -0.1700753 1          0.1133737 
+x2| -0.1497195 0.1133737  1    
 ```
 
+## `.ml.crm`
 
+_Correlation of a matrix_
+
+Syntax: `.ml.crm[x]`
+
+Where 
+
+-  `x` is a matrix
+
+returns the correlation matrix
+
+```q
+q)show mat:(5?10;5?10;5?10)
+8 2 5 0 6
+4 0 4 9 6
+0 2 9 0 0
+q).ml.crm[mat]
+1          -0.2048455 0.0562181 
+-0.2048455 1          -0.2848782
+0.0562181  -0.2848782 1         
+```
 ## `.ml.crossentropy`
 
 _Categorical cross entropy_
@@ -195,15 +249,40 @@ q).ml.crossentropy[g;p]
 q).ml.crossentropy[b;p]
 3.187829
 ```
+## `.ml.cvm`
 
+_Covariance of a matrix_
+
+Syntax: `.ml.cvm[x]`
+
+Where
+
+-  `x` is a matrix
+
+Returns the covariance matrix
+
+```q
+q)show mat:(5?10;5?10;5?10)
+3 6 0 8 4
+1 7 4 7 6
+6 9 9 8 7
+q).ml.cvm[mat]
+7.36 4   0.04
+4    5.2 1.6 
+0.04 1.6 1.36
+```
 
 ## `.ml.describe`
 
-_Descriptive information_
+_Descriptive information about a table_
 
 Syntax: `.ml.describe[x]`
 
-Where `x` is a table, returns a dictionary description of aggregate values (count, mean, standard deviation and quartiles) for each numeric column.
+Where
+
+-   `x` is a table
+
+returns a dictionary description of aggregate values (count, mean, standard deviation and quartiles) for each numeric column.
 
 ```q
 q)n:1000
@@ -243,10 +322,120 @@ q).ml.eye 5
 0 0 0 0 1
 ```
 
+## `.ml.f1score`
+
+_F-1 score for classification results_
+
+Syntax: `.ml.f1score[x;y]`
+
+Where
+
+-   `x` is a vector of predicted values
+-   `y` is a vector of true values
+-   `z` is the positive class
+
+returns the F-1 score between predicted and true values.
+
+```q
+q)xr:1000?5
+q)yr:1000?5
+q).ml.f1score[xr;yr;4]
+0.1980676
+q)xb:1000?0b
+q)yb:1000?0b
+q).ml.f1score[xb;yb;0b]
+0.4655532
+```
+
+## `.ml.fbscore`
+
+_F-beta score for classification results_
+
+Syntax: `.ml.fbscore[x;y]`
+
+Where
+
+-   `x` is a vector of predicted values
+-   `y` is a vector of true values
+-   `z` is the positive class
+-   `b` is the value of beta
+
+returns the F-beta score between predicted and true values.
+
+```q
+q)xr:1000?5
+q)yr:1000?5
+q).ml.fbscore[xr;yr;4;.5]
+0.2254098
+q)xb:1000?0b
+q)yb:1000?0b
+q).ml.fbscore[xb;yb;1b;.5]
+0.5191595
+```
+
+## `.ml.kfoldx`
+
+_K-Fold cross validation_
+
+Syntax: `.ml.kfoldx[x;y;i;fn]`
+
+Where
+
+-   `x` is the data matrix
+-   `y` is the target vector
+-   `i` are the indices for the K-fold validation using `.ml.kfsplit`
+-   `fn` is the model which is being passed to the function for cross validation
+
+returns the cross validated score for an applied machine-learning algorithm.
+```q
+n:10000
+q)xg:(n?100f;asc n?100f)        / 'good values' for linear regressor
+q)yg:asc n?100f
+q)reg:.p.import[`sklearn.linear_model][`:LinearRegression][]
+q)reg1:.p.import[`sklearn.linear_model][`:SGDRegressor][]
+q)reg2:.p.import[`sklearn.linear_model][`:ElasticNet][]
+q)reg3:.p.import[`sklearn.neighbors][`:KNeighborsRegressor][]
+q)folds:10                      / number of folds for data
+q)i:.ml.kfshuff[yg;folds]
+q).ml.kfoldx[xg;yg;i]each(reg;reg1;reg2;reg3)
+0.9998536 -1.24663e+24 0.9998393 0.9999997
+q)yb:n?100f                     / 'bad values' for linear regression
+q)xb:(n?100f;n?100f)
+q).ml.kfoldx[xb;yb;i]each(reg;reg1;reg2;reg3)
+-0.009119423 -7.726559e+21 -0.009119348 -0.2275681
+```
+!!! note
+        This is an aliased version of the function `.ml.xval.kfoldx` which is contained in the `.ml.xval` namespace.
+
+## `.ml.kfshuff`
+
+_Randomized non repeating indices for K-fold cross validation_
+
+Syntax: `.ml.kfshuff[x;y]`
+
+Where
+
+-   `x` is the target vector
+-   `y` is the number of 'folds' which the data is to be split into
+
+returns randomized non repeating indices associated with each of K folds.
+
+```q
+q)yg:asc 1000?100f
+q).ml.kfshuff[yg;5]
+647 755 790 152 948 434 583 536 156 637 699 159 315 698 41  345 565 680 775 6..
+118 402 34  601 833 877 762 703 129 294 593 634 192 939 545 98  641 266 910 4..
+795 69  664 393 519 722 616 55  132 802 448 140 361 194 977 97  247 74  733 6..
+633 430 346 267 102 201 123 295 487 418 606 108 154 899 398 932 994 643 944 5..
+919 354 119 478 954 567 497 848 665 471 406 541 307 82  984 198 134 622 550 9..
+```
+!!! note
+        This is an aliased version of the function `.ml.xval.kfshuff` which is contained in the `.ml.xval` namespace.
+
 
 ## `.ml.linspace`
 
-_Array of evenly-spaced values_
+_List of evenly-spaced values_
 
 Syntax: `.ml.linspace[x;y;z]`
 
@@ -288,10 +477,67 @@ q).ml.logloss[v;b]
 1.032062
 ```
 
+## `.ml.mae`
+
+_Mean absolute error_
+
+Syntax: `.ml.mae[x;y]`
+
+Where
+
+-   `x` is a vector of predicted values
+-   `y` is a vector of true values
+
+returns the mean absolute error between predicted and true values.
+
+```q
+q).ml.mae[100?0b;100?0b]
+45f
+q).ml.mae[100?5;100?5]
+173f
+```
+
+## `.ml.mape`
+
+_Mean absolute percentage error_
+
+Syntax: `.ml.mape[x;y]`
+
+Where
+
+-   `x` is a vector of predicted values
+-   `y` is a vector of true values
+
+returns the mean absolute percentage error between predicted and true values. All values must be floats.
+
+```q
+q)mape[100?5.0;100?5.0]
+660.9362
+```
+
+## `.ml.matcorr`
+
+_Matthews-correlation coefficient_
+
+Syntax: `.ml.matcorr[x;y]`
+
+Where
+
+-   `x` is a vector of predicted labels
+-   `y` is a vector of the true labels
+
+returns the Matthews-correlation coefficient between predicted and true values.
+
+```q
+q).ml.matcorr[100?0b;100?0b]
+0.1256775
+q).ml.matcorr[100?5;100?5]
+7.880334e-06
+```
 
 ## `.ml.mse`
 
-_Mean square error_
+_Mean squared error_
 
 Syntax: `.ml.mse[x;y]`
 
@@ -300,7 +546,7 @@ Where
 -   `x` is a vector of predicted values
 -   `y` is a vector of true values
 
-returns the mean squared error between predicted values and the true values.
+returns the mean squared error between predicted and true values.
 
 ```q
 q).ml.mse[asc 100?1f;asc 100?1f]
@@ -324,9 +570,9 @@ Where
 returns the value below which `y` percent of the of the observations within the array are found.
 
 ```q
-q).ml.percentile[10000?1f;0.2]
+q).ml.percentile[10000?1f;.2]
 0.2030272
-q).ml.percentile[10000?1f;0.6]
+q).ml.percentile[10000?1f;.6]
 0.5916521
 ```
 
@@ -352,6 +598,28 @@ q).ml.precision[1000?"AB";1000?"AB";"B"]
 0.499002
 ```
 
+## `.ml.r2score`
+
+_R2-score for regression model validation_
+
+Syntax: `.ml.r2score[x;y]`
+
+Where
+
+-   `x` are predicted continuous values
+-   `y` are true continuous values
+
+returns the R2-score between the true and predicted values. Values close to 1 indicate good prediction, while negative values indicate poor predictors of the system behaviour.
+
+```q
+q)xg:asc 1000?50f           / 'good values'
+q)yg:asc 1000?50f
+q).ml.r2score[xg;yg]
+0.9966209
+q)xb:asc 1000?50f           / 'bad values'
+q)yb:desc 1000?50f
+-2.981791
+```
 
 ## `.ml.range`
 
@@ -359,7 +627,11 @@ _Range of values_
 
 Syntax: `.ml.range[x]`
 
-Where `x` is a vector of numeric values, returns the range of its values.
+Where
+
+-   `x` is a vector of numeric values
+
+returns the range of its values.
 
 ```q
 q).ml.range 1000?100000f
@@ -369,7 +641,7 @@ q).ml.range 1000?100000f
 
 ## `.ml.roc`
 
-_X- and Y-axis values for an ROC curve_
+_X- and Y-axis values for a ROC curve_
 
 Syntax: `.ml.roc[x;y]`
 
@@ -378,7 +650,7 @@ Where
 -   `x` is the label associated with a prediction
 -   `y` is the probability that a prediction belongs to the positive class
 
-returns the coordinates of the true-positive and false-positive values associated with the ROC curve.
+returns the co-ordinates of the true and false positive values associated with the ROC curve.
 
 ```q
 q)v:raze reverse 50?'til[20+1]xprev\:20#1b
@@ -391,7 +663,7 @@ q).ml.roc[v;p]
 
 ## `.ml.rocaucscore`
 
-_Area under an ROC curve_
+_Area under a ROC curve_
 
 Syntax: `.ml.rocaucscore[x;y]`
 
@@ -409,6 +681,49 @@ q).ml.rocaucscore[v;p]
 0.8696362
 ```
 
+## `.ml.rmse`
+
+_Root mean squared error for a regressor_
+
+Syntax: `.ml.rmse[x;y]`
+
+Where
+
+-   `x` is a vector of predicted values
+-   `y` is a vector of true values
+
+returns the root mean squared error for a regression model between predicted and true values.
+
+```q
+q)n:10000
+q)xg:asc n?100f
+q)yg:asc n?100f
+q).ml.rmse[xg;yg]
+0.5321886
+q)xb:n?100f
+q).ml.rmse[xb;yg]
+41.03232
+```
+
+## `.ml.rmsle`
+
+_Root mean squared log error_
+
+Syntax: `.ml.rmsle[x;y]`
+
+Where
+
+-   `x` is a vector of predicted values
+-   `y` is a vector of true values
+
+returns the root mean squared log error between predicted and true values.
+
+```q
+q).ml.rmsle[100?0b;100?0b]
+0.5187039
+q).ml.rmsle[100?5;100?5]
+0.8465022
+```
 
 ## `.ml.sensitivity`
 
@@ -438,7 +753,11 @@ _Shape of a matrix_
 
 Syntax: `.ml.shape[x]`
 
-Where `x` is an object, returns its shape as a list of dimensions.
+Where
+
+-   `x` is an object
+
+returns its shape as a list of dimensions.
 
 ```q
 q).ml.shape 10
@@ -459,6 +778,25 @@ q).ml.shape ([]c1:til 10;c2:0)
 
 !!! warning "Behavior of `.ml.shape` is undefined for ragged/jagged arrays."
 
+## `.ml.smape`
+
+_Symmetric mean absolute percentage error_
+
+Syntax: `.ml.smape[x;y]`
+
+Where
+
+-   `x` is a vector of predicted values
+-   `y` is a vector of true values
+
+returns the symmetric-mean absolute percentage between predicted and true values.
+
+```q
+q)smape[100?0b;100?0b]
+92f
+q)smape[100?5;100?5]
+105.781
+```
 
 ## `.ml.specificity`
 
@@ -532,7 +870,11 @@ _T-test for independent samples with equal variances and equal sample size_
 
 Syntax: `.ml.tscoreeq[x;y]`
 
-Where `x` and `y` are independent sample sets with equal variance and sample size, returns their t-test score.
+Where
+
+-   `x` and `y` are independent sample sets with equal variance and sample size
+
+returns their t-test score.
 
 ```q
 q)x:10+(-.5+avg each 0N 20#1000?1f)*sqrt 20*12 / ~N(10,1)
@@ -544,18 +886,96 @@ q).ml.tscoreeq[x;y]
 50.46957
 ```
 
+## `.ml.util.classreport`
+
+_Statistical information about classification results_
+
+Syntax: `.ml.util.classreport[x;y]`
+
+Where
+
+* `x` is a vector of predicted values.
+* `y` is a vector of true values.
+
+returns the accuracy, precision and f1 scores and the support (number of occurrences) of each class.
+
+```q
+q)n:1000
+q)xr:n?5
+q)yr:n?5
+q).ml.util.classreport[xr;yr]
+class     precision recall f1_score support
+-------------------------------------------
+0         0.2       0.23   0.22     179
+1         0.22      0.22   0.22     193
+2         0.21      0.21   0.21     192
+3         0.19      0.19   0.19     218
+4         0.21      0.17   0.19     218
+avg/total 0.206     0.204  0.206    1000
+
+q)xb:n?0b
+q)yb:n?0b
+q).ml.util.classreport[xb;yb]
+class     precision recall f1_score support
+-------------------------------------------
+0         0.51      0.51   0.51     496
+1         0.52      0.52   0.52     504
+avg/total 0.515     0.515  0.515    1000
+
+q)xc:n?`A`B`C
+q)yc:n?`A`B`C
+q).ml.util.classreport[xc;yc]
+class     precision recall f1_score support
+-------------------------------------------
+A         0.34      0.33   0.33     336
+B         0.33      0.36   0.35     331
+C         0.32      0.3    0.31     333
+avg/total 0.33      0.33   0.33     1000
+```
+
+## `.ml.util.combs`
+
+_Unique combinations of vector or matrix_
+
+Syntax: `.ml.util.combs[x]`
+
+Where 
+
+-  `x` is a vector or matrix
+
+Returns the unique combination of values from the data
+
+```q
+q)show l:5?10
+4 1 7 1 1
+q).ml.util.combs[3;l]
+7 1 4
+1 1 4
+1 7 4
+1 7 1
+1 1 4
+1 7 4
+1 7 1
+1 1 4
+1 1 1
+1 1 7
+```
 
 ## `.ml.util.df2tab`
 
-_Convert from a Pandas DataFrame to q table_
+_q table from a Pandas dataframe_
 
 Syntax: `.ml.util.df2tab[x]`
 
-Where `x` is an embedPy representation of a Pandas DataFrame, returns it as a q table.
+Where
+
+-   `x` is an embedPy representation of a Pandas DataFrame
+
+returns it as a q table.
 
 ```q
 q)p)import pandas as pd
-q)print t:.p.eval"pd.DataFrame({'fcol':[0.1,0.2,0.3,0.4,0.5],'jcol':[10,20,30,40,50]})"
+q)print t:.p.eval"pd.DataFrame({'fcol':[.1,.2,.3,.4,.5],'jcol':[10,20,30,40,50]})"
    fcol  jcol
 0   0.1    10
 1   0.2    20
@@ -593,11 +1013,15 @@ jcol| fcol
 
 ## `.ml.util.dropconstant`
 
-_Remove columns with zero variance_
+_Columns with zero variance removed_
 
 Syntax: `.ml.util.dropconstant[x]`
 
-Where `x` is a numerical table, returns `x` without columns of zero variance.
+Where
+
+-   `x` is a numerical table
+
+returns `x` without columns of zero variance.
 
 ```q
 q)5#tab:([]1000?100f;1000#10;1000#0N)
@@ -621,7 +1045,7 @@ x
 
 ## `.ml.util.filltab`
 
-_Tunable filling of null data for a simple table_
+_Tailored filling of null values for a simple matrix_
 
 Syntax: `.ml.util.filltab[t;gcol;tcol;dict]`
 
@@ -632,7 +1056,7 @@ Where
 -   `tcol` is a time column in the data
 -   `dict` is a dictionary defining fill behaviour
 
-returns a table with columns filled according to assignment of keys in the dictionary `dict`. The function defaults to forward-filling, followed by back-filling nulls. However changes to the default dictionary allow for zero, median, mean or linear interpolation to be applied on individual columns.
+returns a table with columns filled according to assignment of keys in the dictionary, `dict`. The function defaults to forward-filling nulls, followed by back-filling. However, changes to the default dictionary allow for zero, median, mean or linear interpolation to be applied on individual columns.
 
 ```q
 q)show tab:([]sym:10?`A`B;time:asc 10?0t;@[10?1f;0 1 8 9;:;0n];@[10?1f;4 5;:;0n];@[10?1f;2*til 5;:;0n])
@@ -677,14 +1101,59 @@ A   22:58:06.856 -0.1277062 0.2407035  0.04661209
 
 ```
 
+## `.ml.util.freqencode`
+
+_Encoded frequency of individual category occurences_
+
+Syntax:.`.ml.util.frequencode[x]`
+
+Where
+
+-   `x` is a table containing at least one column with categorical features (symbols)
+
+returns table with frequency of occurrance of individual categories.
+
+```q
+q)tab:([]10?`a`b`c;10?10f)
+x x1      
+----------
+b 7.667049
+b 2.975384
+b 8.607676
+a 7.35515 
+c 3.384913
+c 8.934151
+c 3.731562
+b 6.22616 
+c 2.714665
+a 7.288787
+q).ml.util.freqencode[tab]
+x1         freq_x
+-----------------
+9.602129   0.6   
+2.256037   0.4   
+7.922876   0.6   
+0.04380018 0.6   
+3.442662   0.6   
+7.116088   0.4   
+0.9901482  0.4   
+8.60422    0.6   
+6.491715   0.4   
+6.482049   0.6   
+```
+
 
 ## `.ml.util.infreplace`
 
-_Replace +/- infinities with data min/max_
+_+/- infinities replaced with data min/max_
 
 Syntax: `.ml.util.infreplace[x]`
 
-Where `x` is a dictionary/table/list of numeric values. Returns the data with positive/negative infinities replaced by max/min values for the given key.
+Where
+
+-   `x` is a dictionary/table/list of numeric values
+
+returns the data with positive/negative infinities replaced by max/min values for the given key.
 
 ```q
 q)show d:`A`B`C!(5 6 9 0w;10 -0w 0 50;0w 1 2 3)
@@ -706,14 +1175,59 @@ A B  C
 9 50 3
 ```
 
+## `.ml.util.lexiencode`
+
+_Categorical labels of features based on their lexigraphical order_
+
+Syntax:`.ml.util.lexiencode[tab]`
+
+Where
+
+-   `tab` is a table containing at least one column with letters
+
+returns table with lexigraphical order of letters column.
+
+```q
+q)show tab:([]10?10f;10?`a`b`c;10?10f)
+x         x1 x2      
+---------------------
+2.652528  b  2.194196
+3.49562   a  3.997433
+6.02218   c  9.08391 
+0.5352858 a  3.560436
+2.101436  a  7.084245
+2.812222  b  7.724299
+5.215879  c  8.157121
+2.991163  c  2.096742
+8.250197  a  7.881085
+0.4501006 b  4.31398 
+q).ml.util.lexiencode[tab]
+x         x2       lexi_label_x1
+--------------------------------
+2.652528  2.194196 1            
+3.49562   3.997433 0            
+6.02218   9.08391  2            
+0.5352858 3.560436 0            
+2.101436  7.084245 0            
+2.812222  7.724299 1            
+5.215879  8.157121 2            
+2.991163  2.096742 2            
+8.250197  7.881085 0            
+0.4501006 4.31398  1 
+```
+
 
 ## `.ml.util.minmaxscaler`
 
-_Scale data between 0-1_
+_Data scaled between 0-1_
 
 Syntax: `.ml.util.minmaxscaler[x]`
 
-Where `x` is a numerical table, matrix or list and returns a min-max scaled representation with values scaled between 0 and 1.
+Where
+
+-   `x` is a numerical table, matrix or list
+
+returns a min-max scaled representation with values scaled between 0 and 1.
 
 ```q
 q)n:5
@@ -752,6 +1266,47 @@ q).ml.util.minmaxscaler[list]
 0.7835052 0.2886598 0.5463918 0.443299 1 0.09278351 0.1030928 0 0.9175258 0.9..
 ```
 
+## `.ml.nullencode`
+
+_Nulls filled with avg/med/min/max of the column_
+
+Syntax: `.ml.util.nullencode[t;y]`
+
+Where
+
+-   `t` is a table containing nulls and y is the function to be applied to nulls
+
+returns table with nulls filled and additional columns that encode the null positions of each original column.
+
+```q
+q)show tab:([]@[10?1f;0 1 8 9;:;0n];@[10?1f;4 5;:;0n];@[10?1f;2*til 5;:;0n])
+x         x1        x2        
+------------------------------
+          0.3238152           
+          0.8616775 0.8640424 
+0.2062779 0.032353            
+0.7802666 0.3826807 0.8002228 
+0.4809723                     
+0.940638            0.5370027 
+0.3497468 0.2885991           
+0.3165283 0.2879356 0.5639193 
+          0.7708107           
+          0.783687  0.08766932
+
+q).ml.util.nullencode[tab;avg]
+x         x1        x2         null_x null_x1 null_x2
+-----------------------------------------------------
+0.512405  0.3238152 0.5705713  1      0       1      
+0.512405  0.8616775 0.8640424  1      0       0      
+0.2062779 0.032353  0.5705713  0      0       1      
+0.7802666 0.3826807 0.8002228  0      0       0      
+0.4809723 0.4664448 0.5705713  0      1       1      
+0.940638  0.4664448 0.5370027  0      1       0      
+0.3497468 0.2885991 0.5705713  0      0       1      
+0.3165283 0.2879356 0.5639193  0      0       0      
+0.512405  0.7708107 0.5705713  1      0       1      
+0.512405  0.783687  0.08766932 1      0       0 
+```
 
 ## `.ml.util.onehot`
 
@@ -759,7 +1314,11 @@ _One-hot encoding_
 
 Syntax: `.ml.util.onehot[x]`
 
-Where `x` is a list of symbols, returns its one-hot encoded representation.
+Where
+
+-   `x` is a list of symbols or a table containing symbols
+
+returns its one-hot encoded representation.
 
 ```q
 q)x:`a`a`b`b`c`a
@@ -770,12 +1329,39 @@ q).ml.util.onehot[x]
 0 1 0
 0 0 1
 1 0 0
+
+q)show tab:([]10?`a`b`c;10?10f;10?10f)
+x x1        x2        
+----------------------
+a 7.310299  5.697305  
+b 0.8842384 1.714374  
+b 8.203719  0.09300471
+a 8.749888  6.349401  
+b 7.73655   8.607533  
+a 6.01945   3.617256  
+b 7.03047   0.9167078 
+a 7.830783  7.658206  
+b 5.559878  2.115546  
+c 6.325994  1.445261  
+q)q).ml.util.onehot[tab]
+x1        x2         x_a x_b x_c
+--------------------------------
+7.310299  5.697305   1   0   0  
+0.8842384 1.714374   0   1   0  
+8.203719  0.09300471 0   1   0  
+8.749888  6.349401   1   0   0  
+7.73655   8.607533   0   1   0  
+6.01945   3.617256   1   0   0  
+7.03047   0.9167078  0   1   0  
+7.830783  7.658206   1   0   0  
+5.559878  2.115546   0   1   0  
+6.325994  1.445261   0   0   1 
 ```
 
 
 ## `.ml.util.polytab`
 
-_Tunable polynomial features from an input table_
+_Polynomial features of degree n from a table_
 
 Syntax: `.ml.util.polytab[t;n]`
 
@@ -788,7 +1374,7 @@ returns the polynomial derived features of degree `n` in the form of a table.
 
 ```q
 q)n:100
-q)5#tab:([]val:sin 0.001*til n;til n;n?100f;n?1000f;n?10)
+q)5#tab:([]val:sin .001*til n;til n;n?100f;n?1000f;n?10)
 val          x  x1       x2       x3
 --------------------------------------
 0            0  52.26479 990.7741 1
@@ -833,7 +1419,13 @@ _Standard scaler transform-based representation_
 
 Syntax: `.ml.util.stdscaler[x]`
 
-Where `x` is a numerical table, matrix or list, returns a table where each column has undergone a standard scaling given as `(x-avg x)%dev x`.
+Where
+
+-   `x` is a numerical table, matrix or list
+
+returns a table where each column has undergone a standard scaling given as:
+
+ `(x-avg x)%dev x`
 
 ```q
 q)n:5
@@ -875,11 +1467,15 @@ q).ml.util.stdscaler[list]
 
 ## `.ml.util.tab2df`
 
-_Convert a q table to Pandas dataframe_
+_Pandas dataframe from a q table_
 
 Syntax: `.ml.util.tab2df[x]`
 
-Where `x` is a table, returns it as a Pandas dataframe.
+Where
+
+-   `x` is a table
+
+returns it as a Pandas dataframe.
 
 ```q
 q)n:5
@@ -898,10 +1494,44 @@ q)print pdf / display the python form of the dataframe
 2  3250.627243   3   2  16.710134
 ```
 
+## `.ml.util.timespantransform`
+
+_Timespan converted into its constituent parts_
+
+Syntax: `.ml.util.timespantransform[tab]`
+
+Where
+
+-   `tab` is the table onto which this calculation is to be computed
+
+returns a table, with the timespan column removed, converted into columns containing the consituent parts, representing the information contained in the timespan.
+
+!!!note
+        At a fundamental level this works by looking for columns in the dataset of type "p". It should also be noted here that if the function is passed a table without a timespan, then it will return the original table.
+```q
+q)show t:([]asc 100?0p;100?1f;100?`1;100?10)
+x                             x1         x2 x3
+----------------------------------------------
+2000.01.18D20:12:15.589928180 0.3813679  e  8
+2000.01.29D20:12:45.571620315 0.03112646 o  1
+2000.02.06D08:20:37.705269456 0.4194691  k  9
+2000.03.01D20:24:37.530120313 0.1862869  d  5
+2000.04.03D02:38:08.821253926 0.7959531  e  4
+q).ml.util.timespantransform[t]
+yr_x qtr_x mm_x dom_x dow_x wd_x hr_x mn_x sec_x x1         x2 x3
+-----------------------------------------------------------------
+2000 1     1    18    3     1    20   12   15    0.3813679  e  8
+2000 1     1    29    0     0    20   12   45    0.03112646 o  1
+2000 1     2    6     1     0    8    20   37    0.4194691  k  9
+2000 1     3    1     4     1    20   24   37    0.1862869  d  5
+2000 2     4    3     2     1    2    38   8     0.7959531  e  4
+```
+
+
 
 ## `.ml.util.traintestsplit`
 
-_Split into training and test sets_
+_Training and testing sets_
 
 Syntax: `.ml.util.traintestsplit[x;y;sz]`
 
@@ -909,14 +1539,14 @@ Where
 
 -   `x` is a matrix
 -   `y` is a boolean vector of the same count as `x`
--   `sz` is a numeric atom in the range 0-100
+-   `sz` is a numeric atom in the range 0-1, representing the percentage of data in the testing set
 
-returns a dictionary containing the data matrix `x` and target `y`, split into a training and testing set according to the percentage `sz` of the data to be contained in the test set.
+returns a dictionary containing the data matrix `x` and target `y`, split into a train/test sets according to `sz`.
 
 ```q
 q)x:(30 20)#1000?10f
 q)y:rand each 30#0b
-q).ml.util.traintestsplit[x;y;0.2] / split the data such that 20% is contained in the test set
+q).ml.util.traintestsplit[x;y;.2] / split the data such that 20% is contained in the test set
 xtrain| (2.02852 2.374546 1.083376 2.59378 6.698505 6.675959 4.120228 2.63468..
 ytrain| 110010100101111001110000b
 xtest | (8.379916 8.986609 7.06074 2.067817 5.468488 4.103195 0.1590803 0.259..
@@ -926,7 +1556,7 @@ ytest | 000001b
 
 ## `.ml.util.traintestsplitseed`
 
-_Split into training and test sets with a seed_
+_Training and testing sets with a seed_
 
 Syntax: `.ml.util.traintestsplitseed[x;y;sz;seed]`
 
@@ -934,20 +1564,20 @@ Where
 
 -   `x` is a matrix
 -   `y` is a boolean vector of the same count as `x`
--   `sz` is a numeric atom in the range 0-1
+-   `sz` is a numeric atom in the range 0-1, representing the percentage of data in the testing set
 -   `seed` is a numeric atom
 
-as with `.ml.util.traintestsplit`, returns a dictionary containing the data matrix `x` and target `y` split into a training and testing set based on the percentage `sz` of the data to be contained in the test set. This version can be given a random seed (`seed`), thus allowing for the same splitting of the data to be repeatedly achieved.
+returns a dictionary containing the data matrix `x` and target `y`, split into a train/test sets according to `sz`. This version of `.ml.util.traintestsplit` can be given a random seed, `seed`, allowing the same data split to be achieved repeatedly.
 
 ```q
 q)x:(30 20)#1000?10f
 q)y:rand each 30#0b
-q).ml.util.traintestsplitseed[x;y;0.2;42]
+q).ml.util.traintestsplitseed[x;y;.2;42]
 xtrain| (8.752061 6.82448 3.992896 2.465234 8.599461 2.452222 6.070236 6.8686..
 ytrain| 000011101000001110111101b
 xtest | (4.204472 7.137387 1.163132 9.893949 4.504886 5.465625 8.298632 0.049..
 ytest | 000001b
-q).ml.util.traintestsplitseed[x;y;0.2;42] /show that the splitting on repetition is the same
+q).ml.util.traintestsplitseed[x;y;.2;42] /show that the splitting on repetition is the same
 xtrain| (8.752061 6.82448 3.992896 2.465234 8.599461 2.452222 6.070236 6.8686..
 ytrain| 000011101000001110111101b
 xtest | (4.204472 7.137387 1.163132 9.893949 4.504886 5.465625 8.298632 0.049..
